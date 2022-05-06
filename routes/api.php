@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthenticateController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [AuthenticateController::class, 'logout'])->name('logout');
     
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::get('/profile', [ProfileController::class,'show'])->name('profile.show');
+    Route::post('/profile', [ProfileController::class,'update'])->name('profile.update');
 });
