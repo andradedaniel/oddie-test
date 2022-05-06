@@ -3,13 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
-use App\Http\Requests\Traits\FailedValidation;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
-    use FailedValidation;
     /**
      * Determine if the user is authorized to make this request.
      *

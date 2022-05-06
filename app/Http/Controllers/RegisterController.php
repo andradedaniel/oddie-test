@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Responses\RegisterResponse;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Responses\SuccessResponse;
 
 class RegisterController extends Controller
 {
@@ -13,9 +13,9 @@ class RegisterController extends Controller
      * Create a new registered user.
      *
      * @param  \App\Http\Requests\RegisterRequest  $request
-     * @return \App\Http\Responses\RegisterResponse;
+     * @return \App\Http\Responses\SuccessResponse;
      */
-    public function store(RegisterRequest $request): RegisterResponse
+    public function store(RegisterRequest $request): SuccessResponse
     {
         User::create([
             'name' => $request->name,
@@ -26,6 +26,6 @@ class RegisterController extends Controller
             'is_admin' => $request->is_admin
         ]);
 
-        return app(RegisterResponse::class);
+        return new SuccessResponse(__('User created'), 201);
     }
 }
