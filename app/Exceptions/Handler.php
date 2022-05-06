@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Http\Responses\FailedValidationResponse;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -32,6 +34,10 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+        $this->renderable(function (ValidationException $e, $request) {
+            if ($request->is('api/*')) {
+                return new FailedValidationResponse($e);
+            }
+        });
     }
 }
