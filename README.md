@@ -33,7 +33,7 @@ Desenvolver uma API para criação de profile de usuario para uma Rede social, c
 #### Copiar o arquivo .env
 
 `$ cd oddie-test`\
-`$ cp .env.example .env`\
+`$ cp .env.example .env`
 
 #### Instalar dependências
 
@@ -46,7 +46,7 @@ Desenvolver uma API para criação de profile de usuario para uma Rede social, c
 #### Configuração inicial
 
 `$ ./vendor/bin/sail artisan storage:link`\
-`$ ./vendor/bin/sail artisan migrate --seed`\
+`$ ./vendor/bin/sail artisan migrate --seed`
 
 ---
 ## Como usar
