@@ -26,7 +26,6 @@ class User extends Authenticatable
         'password',
         'cpf',
         'whatsapp',
-        'is_admin'
     ];
 
     /**
