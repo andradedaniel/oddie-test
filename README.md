@@ -1,61 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# **Oddie Test**
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+1. [Sobre o teste](#sobre-o-teste)
+2. [Instalação](#instalação)
+3. [Como usar](#como-usar)
+4. [Observações](#observações)
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Sobre o teste
+#### Descrição básica
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Desenvolver uma API para criação de profile de usuario para uma Rede social, contemplando backend para visualização dos perfis cadastrados.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### User Stories
 
-## Learning Laravel
+- Como visitante, quero me cadastrar informando nome, email, wpp, cpf e senha.
+- Como visitante, quero confirmar a senha para ter certeza que não houve erros no preenchimento.
+- Como usuário, quero fazer login
+- Como usuário, quero adicionar foto de perfil
+- Como usuário, quero substituir foto de perfil
+- Como usuário, quero visualizar os dados do meu perfil
+- Como administrador, quero visualizar os usuários cadastrados
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Instalação
+#### Clonar projeto
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+`$ git clone https://github.com/andradedaniel/oddie-test.git`
 
-### Premium Partners
+#### Copiar o arquivo .env
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+`$ cd oddie-test`
+`$ cp .env.example .env`
 
-## Contributing
+#### Instalar dependências
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+`$ docker run --rm -it -v $PWD:/app --user $(id -u):$(id -g) composer:1.8.6 install`
 
-## Code of Conduct
+#### Fazer build e iniciar containers docker
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`$ ./vendor/bin/sail up --build`
 
-## Security Vulnerabilities
+#### Configuração inicial
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+`$ ./vendor/bin/sail artisan key:generate`
+`$ ./vendor/bin/sail artisan storage:link`
+`$ ./vendor/bin/sail artisan migrate --seed`
 
-## License
+---
+## Como usar
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Junto ao código do projeto existe um arquivo [insomnia.json]() que pode ser utilizado na ferramenta [Insomnia](https://insomnia.rest/) para realizar as requisições de teste. 
+
+Durante a configuração é criado um user Admin para teste. Os dados são: 
+`email: admin@oddie.com`
+`senha: 1234`
+
+Essas credenciais já estão configuradas no Insomnia como váriavel. Basta fazer a requisição "login" que o token de autenticação será  armazenado e utilizado para as proximas requisições. 
+
+Para alterar essas credencias basta entrar em "Manage Environments" (CTRL + E) e alterar os parametros.
+
+---
+
+## Observações
+
+A implementação do teste foi realizando observando as seguintes premissas:
+
+- Utilização de versões do PHP e Laravel iguais (ou próximas) às utilizadas pela Oddie;
+- Foco em atender a rigor as [User Stories](#user-stories) estabelecidas para o teste. Muitas outras coisas poderiam ser feitas, mas fugiria do escopo de um teste;
+- Diante do requisito de ser uma API, julguei conveniente para a situação a utilização do Laravel Sanctum para autenticação e autorização utilizando API Tokens;
+- As demais funcionalidades (Registro, Login e Logout), devido a simplicidade da funcionalidade para efeito de teste, julguei ser mais indicado implementa-las manualmente e não utilizar packages do Laravel que já implementam essas funções (como o Fortify ou Breeze) mas que são de maior complexidade, extrapolando o contexto e o que foi solicitado no teste. 
+
+##### Por fim, não deixe de visitar a [HomePage](http://localhost/) no browser. ;) 
