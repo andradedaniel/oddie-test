@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Responses\SuccessResponse;
+use App\Http\Responses\ApiResponse;
 use App\Http\Requests\UpdateProfileRequest;
 
 class ProfileController extends Controller
@@ -12,11 +12,11 @@ class ProfileController extends Controller
     /**
      * Show logged in user profile.
      *
-     * @return \App\Http\Responses\SuccessResponse
+     * @return \App\Http\Responses\ApiResponse
      */
     public function show()
     {
-      return new SuccessResponse(
+      return new ApiResponse(
             __('User data retrieved successful'),
             200,
             [Auth::user()]);
@@ -26,7 +26,7 @@ class ProfileController extends Controller
      * Update logged in user profile data.
      *
      * @param \App\Http\Requests\UpdateProfileRequest $request
-     * @return \App\Http\Responses\SuccessResponse
+     * @return \App\Http\Responses\ApiResponse
      */
     public function update(UpdateProfileRequest $request) 
     {
@@ -34,6 +34,6 @@ class ProfileController extends Controller
             Auth::user()->updateProfilePhoto($request->profile_photo);
         }
         
-        return new SuccessResponse(__('Profile photo uploaded successful'));
+        return new ApiResponse(__('Profile photo uploaded successful'));
     }
 }
