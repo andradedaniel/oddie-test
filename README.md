@@ -53,6 +53,7 @@ Desenvolver uma API para criação de profile de usuario para uma Rede social, c
 ## Como usar
 
 Junto ao código do projeto existe um arquivo [insomnia.json]() que pode ser utilizado na ferramenta [Insomnia](https://insomnia.rest/) para realizar as requisições de teste. 
+Importe esse arquivo no Insomnia a partir menu preferências na "Data". 
 
 Durante a configuração é criado um user Admin para teste. Os dados são: 
 `email: admin@oddie.com`
