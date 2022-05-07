@@ -5,7 +5,7 @@ namespace App\Http\Responses;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Support\Responsable;
 
-class SuccessResponse implements Responsable
+class ApiResponse implements Responsable
 {
     private int $httpStatus;
     private array $response;
