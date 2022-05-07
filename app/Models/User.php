@@ -26,6 +26,7 @@ class User extends Authenticatable
         'password',
         'cpf',
         'whatsapp',
+        'profile_photo_path',
     ];
 
     /**
