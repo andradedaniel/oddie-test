@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use App\Http\Responses\FailedValidationResponse;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -35,8 +36,20 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (ValidationException $e, $request) {
-            if ($request->is('api/*')) {
-                return new FailedValidationResponse($e);
+            if ($request->expectsJson()) {
+                return (new FailedValidationException($e))->render();
+            }
+        });
+
+        $this->renderable(function (AccessDeniedHttpException $e, $request) {
+            if ($request->expectsJson()) {
+                return (new AccessDeniedException())->render();
+            }
+        });
+
+        $this->renderable(function (AuthenticationException $e, $request) {
+            if ($request->expectsJson()) {
+                return (new UnauthenticatedException())->render();
             }
         });
     }
