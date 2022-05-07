@@ -45,14 +45,13 @@ Desenvolver uma API para criação de profile de usuario para uma Rede social, c
 
 #### Configuração inicial
 
-`$ ./vendor/bin/sail artisan key:generate`
 `$ ./vendor/bin/sail artisan storage:link`
 `$ ./vendor/bin/sail artisan migrate --seed`
 
 ---
 ## Como usar
 
-Junto ao código do projeto existe um arquivo [insomnia.json]() que pode ser utilizado na ferramenta [Insomnia](https://insomnia.rest/) para realizar as requisições de teste. 
+Junto ao código do projeto existe um arquivo [insomnia.json](https://raw.githubusercontent.com/andradedaniel/oddie-test/main/insomnia.json) que pode ser utilizado na ferramenta [Insomnia](https://insomnia.rest/) para realizar as requisições de teste. 
 Importe esse arquivo no Insomnia a partir menu preferências na "Data". 
 
 Durante a configuração é criado um user Admin para teste. Os dados são: 
@@ -71,7 +70,7 @@ A implementação do teste foi realizando observando as seguintes premissas:
 
 - Utilização de versões do PHP e Laravel iguais (ou próximas) às utilizadas pela Oddie;
 - Foco em atender a rigor as [User Stories](#user-stories) estabelecidas para o teste. Muitas outras coisas poderiam ser feitas, mas fugiria do escopo de um teste;
-- Diante do requisito de ser uma API, julguei conveniente para a situação a utilização do Laravel Sanctum para autenticação e autorização utilizando API Tokens;
+- Diante do requisito de ser uma API, entendi ser conveniente para a situação a utilização do Laravel Sanctum para autenticação e autorização utilizando API Tokens;
 - As demais funcionalidades (Registro, Login e Logout), devido a simplicidade da funcionalidade para efeito de teste, julguei ser mais indicado implementa-las manualmente e não utilizar packages do Laravel que já implementam essas funções (como o Fortify ou Breeze) mas que são de maior complexidade, extrapolando o contexto e o que foi solicitado no teste. 
 
 ##### Por fim, não deixe de visitar a [HomePage](http://localhost/) no browser. ;) 
