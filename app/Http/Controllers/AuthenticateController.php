@@ -22,7 +22,7 @@ class AuthenticateController extends Controller
             $this->throwFailedAuthenticationException();
         }
 
-        $token = auth()->user()->createToken('token')->plainTextToken;
+        $token = $this->generateApiToken(auth()->user());
 
         return new SuccessResponse(__('Login successful'), 200, ['token' => $token]);
     }
@@ -38,6 +38,15 @@ class AuthenticateController extends Controller
         $request->user()->currentAccessToken()->delete();
 
         return new SuccessResponse(__('Logout successful'));
+    }
+
+    protected function generateApiToken($user)
+    {
+        $token = $user->is_admin 
+                ? $user->createToken('token', ['is_admin'])
+                : $user->createToken('token');
+                
+        return $token->plainTextToken;
     }
 
     protected function throwFailedAuthenticationException()
